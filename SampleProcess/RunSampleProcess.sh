@@ -1,10 +1,28 @@
 #!/bin/bash
+# ==============================================================================
+# = Simple script to produce diagrams for our model, then generate events using
+# = MadGraph+Pythia
+# = This should be called from within the MadGraph directory. Usage:
+# =   ../SampleProcess/RunSampleProcess.sh
+# ==============================================================================
+
+
+model_name="SampleProcess"
 
 # generate diagrams and set up MG5 area
-./bin/mg5 ../SampleProcess.sh
+echo "Generating diagrams in MadGraph"
+./bin/mg5 ../${model_name}/Configure${model_name}.sh
 
 # copy relevant files to Cards directory
-cp ../SampleProcess/SampleProcess.slha Cards/param_card.dat
-cp ../SampleProcess/pythia_card.dat    Cards/pythia_card.dat
-cp ../SampleProcess/run_card.dat       Cards/run_card.dat
+echo "Copying files to Cards directory"
+cp ../${model_name}/${model_name}.slha ${model_name}/Cards/param_card.dat
+cp ../${model_name}/pythia_card.dat    ${model_name}/Cards/pythia_card.dat
+cp ../${model_name}/run_card.dat       ${model_name}/Cards/run_card.dat
 
+# move to model workspace
+cd ${model_name}
+
+# Generate events!
+#   This will run both MadGraph for the matrix element and Pythia for the decays
+#   and hadronization
+./bin/generate_events -f --laststep=pythia

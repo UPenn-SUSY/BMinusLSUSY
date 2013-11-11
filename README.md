@@ -36,4 +36,6 @@ Run simple sample job:
     history my_mg5_cmd.dat
     open ./my_mg5_cmd.dat # this lets you view/edit the history file within mg5
 
+  Go to process folder, and now you can run madgraph + pythia for this setup:
+    ./bin/generate_events
 
