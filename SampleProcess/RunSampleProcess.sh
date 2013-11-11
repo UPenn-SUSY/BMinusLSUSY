@@ -15,9 +15,10 @@ echo "Generating diagrams in MadGraph"
 
 # copy relevant files to Cards directory
 echo "Copying files to Cards directory"
-cp ../${model_name}/${model_name}.slha ${model_name}/Cards/param_card.dat
-cp ../${model_name}/pythia_card.dat    ${model_name}/Cards/pythia_card.dat
-cp ../${model_name}/run_card.dat       ${model_name}/Cards/run_card.dat
+cp ../${model_name}/${model_name}.slha    ${model_name}/Cards/param_card.dat
+cp ../${model_name}/pythia_card.dat       ${model_name}/Cards/pythia_card.dat
+cp ../${model_name}/run_card.dat          ${model_name}/Cards/run_card.dat
+cp ../${model_name}/me5_configuration.txt ${model_name}/Cards/me5_configuration.txt
 
 # move to model workspace
 cd ${model_name}
