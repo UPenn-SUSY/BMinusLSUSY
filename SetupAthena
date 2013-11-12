@@ -1,1 +1,2 @@
+export LD_LIBRARY_PATH=''
 asetup 17.3.5,AtlasProduction
