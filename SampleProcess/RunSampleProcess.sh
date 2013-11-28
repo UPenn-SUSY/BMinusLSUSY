@@ -6,7 +6,6 @@
 # =   ../SampleProcess/RunSampleProcess.sh
 # ==============================================================================
 
-
 model_name="SampleProcess"
 
 # generate diagrams and set up MG5 area
@@ -19,6 +18,8 @@ cp ../${model_name}/${model_name}.slha    ${model_name}/Cards/param_card.dat
 cp ../${model_name}/pythia_card.dat       ${model_name}/Cards/pythia_card.dat
 cp ../${model_name}/run_card.dat          ${model_name}/Cards/run_card.dat
 cp ../${model_name}/me5_configuration.txt ${model_name}/Cards/me5_configuration.txt
+
+sed -i "s#CONFIGURE_PATH#${PWD}#g" ${model_name}/Cards/me5_configuration.txt
 
 # move to model workspace
 cd ${model_name}

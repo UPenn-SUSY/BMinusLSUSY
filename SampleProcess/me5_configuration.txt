@@ -117,9 +117,5 @@ automatic_html_opening = False
 
 
 
-
-
-mg5_path = /afs/cern.ch/work/b/bjackson/public/BMinusLSUSY/MadGraph5_v1_5_13 
-
 # MG5 MAIN DIRECTORY
-mg5_path = /afs/cern.ch/work/b/bjackson/public/BMinusLSUSY/MadGraph5_v1_5_13
+mg5_path = CONFIGURE_PATH

@@ -6,10 +6,10 @@
 # =   ../BMinusLTestSamples/RunBMinusLTestSamples.sh
 # ==============================================================================
 
+model_dir="BMinusLTestSamples"
 
 for mass in 100 500 1000; do
-  model_dir="BMinusLTestSamples"
-  model_name="BMinusLTestSamples_$mass"
+  model_name="${model_dir}_${mass}"
 
   # generate diagrams and set up MG5 area
   echo "Generating diagrams in MadGraph"
@@ -22,6 +22,8 @@ for mass in 100 500 1000; do
   cp ../${model_dir}/run_card.dat          ${model_name}/Cards/run_card.dat
   cp ../${model_dir}/me5_configuration.txt ${model_name}/Cards/me5_configuration.txt
 
+  sed -i "s#CONFIGURE_PATH#${PWD}#g" ${model_name}/Cards/me5_configuration.txt
+
   # move to model workspace
   cd ${model_name}
 
@@ -29,4 +31,6 @@ for mass in 100 500 1000; do
   #   This will run both MadGraph for the matrix element and Pythia for the decays
   #   and hadronization
   ./bin/generate_events -f --laststep=pythia
+  
+  cd ..
 done
