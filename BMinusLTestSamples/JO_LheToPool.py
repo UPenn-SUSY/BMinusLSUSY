@@ -11,5 +11,5 @@ topAlg.Pythia8.Commands += [ "Init:showAllParticleData = on"
                            ]
 evgenConfig.description = "testing lhe interface"
 evgenConfig.keywords = ["test"]
-evgenConfig.inputfilecheck = 'SampleProcess'
+evgenConfig.inputfilecheck = 'BMinusLTestSamples'
 

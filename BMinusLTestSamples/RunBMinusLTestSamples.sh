@@ -31,6 +31,6 @@ for mass in 100 500 1000; do
   #   This will run both MadGraph for the matrix element and Pythia for the decays
   #   and hadronization
   ./bin/generate_events -f --laststep=pythia
-  
+
   cd ..
 done
