@@ -1,4 +1,13 @@
 #!/bin/bash
+# ==============================================================================
+# = Submit LHE->Pool + Pool->Truth Ntuple to lxplus batch queue
+# = This should be called from the BMinusLSUSY directort. It will create two
+# = directories.
+# =   jobs: hold job stearing files for the batch jobs - This can be discarded
+# =         once jobs are completed
+# =   d3pd: output ntuples will be copied here
+# = usage: ./SubmitToBatch.sh <model dir> <model name> <queue>
+# ==============================================================================
 
 ${DIR_ON_AFS_WORK}=${PWD}
 model_dir=$1
