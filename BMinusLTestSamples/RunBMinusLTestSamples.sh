@@ -28,9 +28,11 @@ for mass in 100 500 1000; do
   cd ${model_name}
 
   # Generate events!
-  #   This will run both MadGraph for the matrix element and Pythia for the decays
-  #   and hadronization
-  ./bin/generate_events -f --laststep=pythia
+  #   This will run just the matrix elemetn in MadGraph
+  ./bin/generate_events -f
+  # If you want to do both the matrix element (MadGraph) and the
+  #   decays/hadronization, use this command instead.
+  # ./bin/generate_events -f --laststep=pythia
 
   cd ..
 done
