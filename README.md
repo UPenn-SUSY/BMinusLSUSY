@@ -11,6 +11,10 @@ Getting set up:
     cd MadGraph5_v1_5_13
     echo "install pythia-pgs" | ./bin/mg5
 
+  install MadAnalysis:
+    cd MadGraph5_v1_5_13
+    echo "install MadAnalysis" | ./bin/mg5
+
 Run simple sample job:
 
   Start madgraph:
