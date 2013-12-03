@@ -10,8 +10,7 @@ rel_path=$(echo $0 | sed "s#RunBMinusLTestSamples.sh##g")
 echo $rel_path
 model_dir="BMinusLTestSamples"
 
-# for mass in 100 500 1000; do
-for mass in 100 ; do
+for mass in 100 500 1000; do
   for njets in 0 1 ; do
     echo ''
     model_name="${model_dir}_${mass}_np${njets}"
@@ -37,14 +36,14 @@ for mass in 100 ; do
     fi
     cp ./${rel_path}/me5_configuration.txt   ${model_name}/Cards/me5_configuration.txt
 
-    sed -i "" "s#CONFIGURE_PATH#${PWD}#g" ${model_name}/Cards/me5_configuration.txt
+    sed -i "s#CONFIGURE_PATH#${PWD}#g" ${model_name}/Cards/me5_configuration.txt
 
     # move to model workspace
     cd ${model_name}
 
     # Generate events!
     #   This will run just the matrix elemetn in MadGraph
-    ./bin/generate_events -f
+    # ./bin/generate_events -f
     # If you want to do both the matrix element (MadGraph) and the
     #   decays/hadronization, use this command instead.
     # ./bin/generate_events -f --laststep=pythia
