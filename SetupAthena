@@ -2,5 +2,6 @@
 
 export LD_LIBRARY_PATH=''
 # asetup 17.3.5,AtlasProduction
-source $AtlasSetup/scripts/asetup.sh 17.3.5,AtlasProduction
+# source $AtlasSetup/scripts/asetup.sh 17.3.5,AtlasProduction
+source $AtlasSetup/scripts/asetup.sh 17.2.11.15,AtlasProduction
 export JOBOPTSEARCHPATH=/cvmfs/atlas.cern.ch/repo/sw/Generators/MC12JobOptions/latest/common:$JOBOPTSEARCHPATH
