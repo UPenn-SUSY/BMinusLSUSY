@@ -1,6 +1,6 @@
 ##################################
 # Stop pair-production with stop > b l
-include ( 'MC12JobOptions/MadGraphControl_SimplifiedModelPreInclude.py' )
+include('MC12JobOptions/MadGraphControl_SimplifiedModelPreInclude.py' )
 
 # Assigned run numbers later - 400k+ for now
 therun = runArgs.runNumber-400000
