@@ -65,7 +65,7 @@ echo "" >> $jo_file_name
 echo "# Copy dir to afs" >> $jo_file_name
 echo "cd .." >> $jo_file_name
 echo "cp -r ${local_dir_name} ${dir_on_afs_work}/samples" >> $jo_file_name
-echo "mv ${dir_on_afs_work}/samples/${truth_ntuple_name} ${dir_on_afs_work}/truth_d3pd/${truth_ntuple_name}" >> $jo_file_name
+echo "mv ${dir_on_afs_work}/samples/${local_dir_name}/${truth_ntuple_name} ${dir_on_afs_work}/truth_d3pd/${truth_ntuple_name}" >> $jo_file_name
 echo "" >> $jo_file_name
 
 # submit job to batch
