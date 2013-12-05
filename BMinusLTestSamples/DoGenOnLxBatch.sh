@@ -26,7 +26,7 @@ mkdir samples
 mkdir truth_d3pd
 
 # make job option file
-jo_file_name="jobs/jo_${dsid}_${short_name}.sh"
+jo_file_name="jobs/jo.${dsid}.${short_name}.sh"
 echo "#!/bin/bash" > $jo_file_name
 echo "" >> $jo_file_name
 
@@ -39,10 +39,10 @@ echo 'export JOBOPTSEARCHPATH=/cvmfs/atlas.cern.ch/repo/sw/Generators/MC12JobOpt
 echo "" >> $jo_file_name
 
 # make directory for this sample
-local_dir_name="${dsid}_${short_name}"
+local_dir_name="${dsid}.${short_name}"
 echo "# make directory for this sample - ${local_dir_name}" >> $jo_file_name
-echo "mkdir ${dir_name}" >> $jo_file_name
-echo "cd ${dir_name}" >> $jo_file_name
+echo "mkdir ${local_dir_name}" >> $jo_file_name
+echo "cd ${local_dir_name}" >> $jo_file_name
 echo "" >> $jo_file_name
 
 # copy files from afs
@@ -58,11 +58,16 @@ echo "" >> $jo_file_name
 # Run reco trf
 echo "# run reco trf" >> $jo_file_name
 echo "Reco_trf.py inputEVNTFile=${pool_file_name} outputNTUP_TRUTHFile=${truth_ntuple_name}" >> $jo_file_name
+echo "ls" >> $jo_file_name
 echo "" >> $jo_file_name
 
 # Copy dir to afs
 echo "# Copy dir to afs" >> $jo_file_name
-echo "cp -r . ${dir_on_afs_work}/samples" >> $jo_file_name
+echo "cd .." >> $jo_file_name
+echo "cp -r ${local_dir_name} ${dir_on_afs_work}/samples" >> $jo_file_name
 echo "mv ${dir_on_afs_work}/samples/${truth_ntuple_name} ${dir_on_afs_work}/truth_d3pd/${truth_ntuple_name}" >> $jo_file_name
 echo "" >> $jo_file_name
 
+# submit job to batch
+chmod +x $jo_file_name
+bsub -q ${queue} ${PWD}/${jo_file_name}
