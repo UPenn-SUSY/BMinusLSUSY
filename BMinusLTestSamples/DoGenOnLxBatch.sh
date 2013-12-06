@@ -3,8 +3,6 @@
 # = usage: ./DoGenOnLxBatch.sh <DSID> <SHORT_NAME> <NUM_EVENTS> <QUEUE>
 # ==============================================================================
 
-
-echo "source ~/.bash_profile" >> jobs/jo_$model_name.sh
 # get variables from input
 dsid=$1
 short_name=$2
@@ -48,11 +46,12 @@ echo "" >> $jo_file_name
 # copy files from afs
 echo "# copy files from afs" >> $jo_file_name
 echo "cp ${dir_on_afs_work}/configs/* . " >> $jo_file_name
+echo "cp run_card.SM.dat run_card.dat" >> $jo_file_name
 echo "" >> $jo_file_name
 
 # Run generate trf
 echo "# run generate trf" >> $jo_file_name
-echo "Generate_trf.py runNumber=${dsid} randomSeed=1 firstEvent=1 jobConfig=MadGraphControl_SM_TT_directBL.py outputEVNTFile=${pool_file_name} ecmEnergy=8000 maxEvents=500" >> $jo_file_name
+echo "Generate_trf.py runNumber=${dsid} randomSeed=1 firstEvent=1 jobConfig=MadGraphControl_SM_TT_directBL.py outputEVNTFile=${pool_file_name} ecmEnergy=8000 maxEvents=${num_events}" >> $jo_file_name
 echo "" >> $jo_file_name
 
 # Run reco trf
@@ -70,4 +69,4 @@ echo "" >> $jo_file_name
 
 # submit job to batch
 chmod +x $jo_file_name
-bsub -q ${queue} ${PWD}/${jo_file_name}
+echo bsub -q ${queue} ${PWD}/${jo_file_name}

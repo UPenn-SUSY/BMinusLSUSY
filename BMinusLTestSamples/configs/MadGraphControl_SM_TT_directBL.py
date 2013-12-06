@@ -12,6 +12,7 @@ if therun>=0 and therun<20:
     njets=1 # Number of jets in MadGraph
     evgenLog.info('Registered generation of stop pair production, stop to bl; grid point '+str(therun)+' decoded into mass ' + str(masses['1000006']) + ', with ' + str(njets) + ' jets.')
     use_decays=False # To turn on decays in MadGraph
+    evt_multiplier = 20.0
 
 evgenConfig.contact  = [ "bjackson@cern.ch" ] # Didn't look to see if that's right ;-)
 evgenConfig.keywords += ['stop']
