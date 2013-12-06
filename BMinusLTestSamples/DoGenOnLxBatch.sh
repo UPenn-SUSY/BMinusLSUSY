@@ -69,4 +69,4 @@ echo "" >> $jo_file_name
 
 # submit job to batch
 chmod +x $jo_file_name
-echo bsub -q ${queue} ${PWD}/${jo_file_name}
+bsub -q ${queue} ${PWD}/${jo_file_name}
