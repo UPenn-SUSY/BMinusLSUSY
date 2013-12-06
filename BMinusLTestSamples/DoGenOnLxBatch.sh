@@ -46,7 +46,6 @@ echo "" >> $jo_file_name
 # copy files from afs
 echo "# copy files from afs" >> $jo_file_name
 echo "cp ${dir_on_afs_work}/configs/* . " >> $jo_file_name
-echo "cp run_card.SM.dat run_card.dat" >> $jo_file_name
 echo "" >> $jo_file_name
 
 # Run generate trf

@@ -17,6 +17,7 @@ if therun>=0 and therun<20:
 evgenConfig.contact  = [ "bjackson@cern.ch" ] # Didn't look to see if that's right ;-)
 evgenConfig.keywords += ['stop']
 evgenConfig.description = 'stop direct pair production with simplified model'
+evgenConfig.minevents=50000
 
 include ( 'MC12JobOptions/MadGraphControl_SimplifiedModelPostInclude.py' )
 ##################################
