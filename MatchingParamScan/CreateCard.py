@@ -18,7 +18,7 @@ def replaceParam(param_card_lines, param_to_replace, value):
             param_card_lines[i] = l.replace(param_to_replace, str(value))
 
 # ------------------------------------------------------------------------------
-def produceParamCard(ref_param_card_name, output_param_card_name, replace_dict):
+def produceCard(ref_param_card_name, output_param_card_name, replace_dict):
     param_card_lines = readRefParamCard(ref_param_card_name)
 
     for rd in replace_dict:
@@ -33,7 +33,9 @@ def produceParamCard(ref_param_card_name, output_param_card_name, replace_dict):
 def main():
     replace_dict = {'M_STOP': 500}
 
-    produceParamCard('ReferenceParamCard.dat', 'TestParamCard.dat', replace_dict)
+    produceCard('ReferenceParamCard.dat' , 'TestParamCard.dat' , {'M_STOP':500})
+    produceCard('ReferenceRunCard.dat'   , 'TestRunCard.dat'   , {'XQCUT':30})
+    produceCard('ReferencePythiaCard.dat', 'TestPythiaCard.dat', {'QCUT':45})
 
 # ==============================================================================
 if __name__ == '__main__':
