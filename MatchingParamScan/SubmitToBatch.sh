@@ -33,17 +33,12 @@ echo "" >> jobs/jo__$model_name.sh
 echo "source ~/.bash_profile" >> jobs/jo__$model_name.sh
 echo "" >> jobs/jo__$model_name.sh
 
+# Copy files to worker node
 echo "echo \"Copying files to worker node\"" >> jobs/jo__$model_name.sh
 echo "cp -rf ${PWD}/../MadGraph5_v1_5_13 ." >> jobs/jo__$model_name.sh
 echo "cp ${PWD}/$model_name/CreateCard.py ." >> jobs/jo__$model_name.sh
 echo "cp ${PWD}/$model_name/Reference*Card.dat ." >> jobs/jo__$model_name.sh
 echo "" >> jobs/jo__$model_name.sh
-
-# echo "echo \"Creating cards\"" >> jobs/jo__$model_name.sh
-# echo "./CreateCard.py ReferenceParamCard.dat param_card.dat M_STOP $stop_mass" >> jobs/jo__$model_name.sh
-# echo "./CreateCard.py ReferencePythiaCard.dat pythia_card.dat QCUT $qcut" >> jobs/jo__$model_name.sh
-# echo "./CreateCard.py ReferenceRunCard.dat run_card.dat XQCUT $xqcut" >> jobs/jo__$model_name.sh
-# echo "" >> jobs/jo__$model_name.sh
 
 # Run MadGraph
 echo "echo \"Running MadGraph\"" >> jobs/jo__$model_name.sh
@@ -62,10 +57,13 @@ echo "mkdir ${PWD}/${model_name}/matching_plots" >> jobs/jo__$model_name.sh
 echo "cp ${model_name}/HTML/run_01/plots_pythia_fermi/DJR* $PWD/${model_name}/matching_plots/" >> jobs/jo__$model_name.sh
 echo "" >> jobs/jo__$model_name.sh
 
+# make executable
 chmod +x jobs/jo__${model_name}.sh
 
+# display job options
 echo "command"
 cat jobs/jo__${model_name}.sh
 echo ""
 
+# run on batch
 echo bsub -q $queue ${PWD}/jobs/jo__${model_name}.sh
