@@ -33,13 +33,6 @@ ${sample_path}/CreateCard.py ${sample_path}/ReferenceParamCard.dat ${model_name}
 ${sample_path}/CreateCard.py ${sample_path}/ReferenceRunCard.dat ${model_name}/Cards/run_card.dat XQCUT $xqcut
 ${sample_path}/CreateCard.py ${sample_path}/ReferencePythiaCard.dat ${model_name}/Cards/pythia_card.dat QCUT $qcut
 
-# cp ${sample_path}/param_card.dat  ${model_name}/Cards/param_card.dat
-# cp ${sample_path}/pythia_card.dat ${model_name}/Cards/pythia_card.dat
-# cp ${sample_path}/run_card.dat    ${model_name}/Cards/run_card.dat
-
-# cp ./${rel_path}/me5_configuration.txt   ${model_name}/Cards/me5_configuration.txt
-# sed -i "s#CONFIGURE_PATH#${PWD}#g" ${model_name}/Cards/me5_configuration.txt
-
 # move to model workspace
 cd ${model_name}
 
@@ -48,5 +41,4 @@ cd ${model_name}
 # ./bin/generate_events -f
 # If you want to do both the matrix element (MadGraph) and the
 #   decays/hadronization, use this command instead.
-# ./bin/generate_events -f --laststep=pythia
-./bin/generate_events
+./bin/generate_events -f --laststep=pythia
