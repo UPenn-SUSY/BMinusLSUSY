@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 
+import subprocess
+
 mass_min = 100
-mass_max = 1000
+# mass_max = 1000
+mass_max = 200
 mass_step = 100
 
-xqcut_min_factor = 10.
+# xqcut_min_factor = 10.
+xqcut_min_factor = 5.
 xqcut_max_factor = 2.
 xqcut_step = 10
 
@@ -20,5 +24,9 @@ for mass in xrange(mass_min, mass_max + mass_step, mass_step):
         qcut_max = xqcut*2
         for qcut in xrange(qcut_min, qcut_max + qcut_step, qcut_step):
             counter += 1
+
+            print './SubmitToBatch.sh %s %s %s 8nh' % (mass, xqcut, qcut_step)
+            sp = subprocess.Popen(['./SubmitToBatch.sh', '%s' % mass, '%s' % xqcut, '%s' % qcut, '8nh'], stdout=subprocess.PIPE)
+            output = sp.communicate()
 
 print counter

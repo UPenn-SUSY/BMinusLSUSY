@@ -9,7 +9,7 @@
 # = usage: ./SubmitToBatch.sh <model dir> <model name> <queue>
 # ==============================================================================
 
-${DIR_ON_AFS_WORK}=${PWD}
+# DIR_ON_AFS_WORK=${PWD}
 stop_mass=$1
 xqcut=$2
 qcut=$3
@@ -22,7 +22,9 @@ echo "xqcut: $xqcut"
 echo "qcut: $qcut"
 echo "queue: $queue"
 
-mkdir jobs
+if [ ! -d "jobs" ] ; then
+  mkdir jobs
+fi
 
 mkdir $model_name
 cp CreateCard.py Reference*Card.dat $model_name
