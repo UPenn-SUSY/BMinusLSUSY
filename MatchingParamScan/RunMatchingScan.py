@@ -3,12 +3,10 @@
 import subprocess
 
 mass_min = 100
-# mass_max = 1000
-mass_max = 200
+mass_max = 1000
 mass_step = 100
 
-# xqcut_min_factor = 10.
-xqcut_min_factor = 5.
+xqcut_min_factor = 10.
 xqcut_max_factor = 2.
 xqcut_step = 10
 

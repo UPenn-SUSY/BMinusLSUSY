@@ -68,4 +68,4 @@ cat jobs/jo__${model_name}.sh
 echo ""
 
 # run on batch
-echo bsub -q $queue ${PWD}/jobs/jo__${model_name}.sh
+bsub -q $queue ${PWD}/jobs/jo__${model_name}.sh
