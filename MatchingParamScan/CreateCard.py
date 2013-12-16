@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+import sys
+import os.path
+import optparse
+import time
+
 # ------------------------------------------------------------------------------
 def readRefParamCard(ref_param_card_name):
     f = file(ref_param_card_name)
@@ -31,11 +36,18 @@ def produceCard(ref_param_card_name, output_param_card_name, replace_dict):
 
 # ------------------------------------------------------------------------------
 def main():
-    replace_dict = {'M_STOP': 500}
+    ref_card = sys.argv[1]
+    final_card = sys.argv[2]
+    token = sys.argv[3]
+    replace = sys.argv[4]
 
-    produceCard('ReferenceParamCard.dat' , 'TestParamCard.dat' , {'M_STOP':500})
-    produceCard('ReferenceRunCard.dat'   , 'TestRunCard.dat'   , {'XQCUT':30})
-    produceCard('ReferencePythiaCard.dat', 'TestPythiaCard.dat', {'QCUT':45})
+    produceCard(ref_card, final_card, {token:replace})
+
+    # replace_dict = {'M_STOP': 500}
+
+    # produceCard('ReferenceParamCard.dat' , 'TestParamCard.dat' , {'M_STOP':500})
+    # produceCard('ReferenceRunCard.dat'   , 'TestRunCard.dat'   , {'XQCUT':30})
+    # produceCard('ReferencePythiaCard.dat', 'TestPythiaCard.dat', {'QCUT':45})
 
 # ==============================================================================
 if __name__ == '__main__':

@@ -10,42 +10,58 @@
 # ==============================================================================
 
 ${DIR_ON_AFS_WORK}=${PWD}
-sample_dir=$1
-queue=$2
+stop_mass=$1
+xqcut=$2
+qcut=$3
+queue=$4
 
-model_name=$(echo $sample_dir | sed "s#.*/##g")
+model_name="mstop_${stop_mass}__xqcut_${xqcut}__qcut_${qcut}"
 
-echo "sample dir: $sample_dir"
-echo "model name: $model_name"
+echo "stop mass: $stop_mass"
+echo "xqcut: $xqcut"
+echo "qcut: $qcut"
 echo "queue: $queue"
 
 mkdir jobs
 
-echo "#!/bin/bash" > jobs/jo_$model_name.sh
-echo "" >> jobs/jo_$model_name.sh
+mkdir $model_name
+cp CreateCard.py Reference*Card.dat $model_name
 
-echo "source ~/.bash_profile" >> jobs/jo_$model_name.sh
-echo "" >> jobs/jo_$model_name.sh
+echo "#!/bin/bash" > jobs/jo__$model_name.sh
+echo "" >> jobs/jo__$model_name.sh
 
-echo "echo \"Copying files to worker node\"" >> jobs/jo_$model_name.sh
-echo "cp -rf ${PWD}/../MadGraph5_v1_5_13 ." >> jobs/jo_$model_name.sh
-echo "" >> jobs/jo_$model_name.sh
+echo "source ~/.bash_profile" >> jobs/jo__$model_name.sh
+echo "" >> jobs/jo__$model_name.sh
+
+echo "echo \"Copying files to worker node\"" >> jobs/jo__$model_name.sh
+echo "cp -rf ${PWD}/../MadGraph5_v1_5_13 ." >> jobs/jo__$model_name.sh
+echo "cp ${PWD}/$model_name/CreateCard.py ." >> jobs/jo__$model_name.sh
+echo "cp ${PWD}/$model_name/Reference*Card.dat ." >> jobs/jo__$model_name.sh
+echo "" >> jobs/jo__$model_name.sh
+
+# echo "echo \"Creating cards\"" >> jobs/jo__$model_name.sh
+# echo "./CreateCard.py ReferenceParamCard.dat param_card.dat M_STOP $stop_mass" >> jobs/jo__$model_name.sh
+# echo "./CreateCard.py ReferencePythiaCard.dat pythia_card.dat QCUT $qcut" >> jobs/jo__$model_name.sh
+# echo "./CreateCard.py ReferenceRunCard.dat run_card.dat XQCUT $xqcut" >> jobs/jo__$model_name.sh
+# echo "" >> jobs/jo__$model_name.sh
 
 # Run MadGraph
-echo "echo \"Running MadGraph\"" >> jobs/jo_$model_name.sh
-echo "cd MadGraph5_v1_5_13" >> jobs/jo_$model_name.sh
-echo "${PWD}/../TestConfig/RunTestProduction.sh $sample_dir" >> jobs/jo_$model_name.sh
-echo "" >> jobs/jo_$model_name.sh
+echo "echo \"Running MadGraph\"" >> jobs/jo__$model_name.sh
+echo "cd MadGraph5_v1_5_13" >> jobs/jo__$model_name.sh
+echo "${PWD}/RunTestProduction.sh ${PWD}/${model_name} ${stop_mass} ${xqcut} ${qcut}" >> jobs/jo__$model_name.sh
+echo "" >> jobs/jo__$model_name.sh
 
 # Copy output to work space
-echo "echo \"copying root files to work space\"" >> jobs/jo_$model_name.sh
-echo "cp -rf $model_name $PWD" >> jobs/jo_$model_name.sh
-echo "" >> jobs/jo_$model_name.sh
-
-chmod +x jobs/jo_${model_name}.sh
+echo "echo \"copying cards to work space\"" >> jobs/jo__$model_name.sh
+echo "cp *_card.dat $PWD/${model_name}" >> jobs/jo__$model_name.sh
+echo "" >> jobs/jo__$model_name.sh
+echo "echo \"copying jet matching plots to work space\"" >> jobs/jo__$model_name.sh
+# echo "cp -rf *_card.dat $PWD/${model_name}" >> jobs/jo__$model_name.sh
+# 
+chmod +x jobs/jo__${model_name}.sh
 
 echo "command"
-cat jobs/jo_${model_name}.sh
+cat jobs/jo__${model_name}.sh
 echo ""
 
-bsub -q $queue ${PWD}/jobs/jo_${model_name}.sh
+echo bsub -q $queue ${PWD}/jobs/jo__${model_name}.sh

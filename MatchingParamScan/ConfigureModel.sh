@@ -1,7 +1,7 @@
 #!/bin/bash
 
 model_name=$1
-config_file="config_${model_name}.sh"
+config_file="config__${model_name}.sh"
 
 echo "" > $config_file
 echo "import model mssm" >> $config_file
