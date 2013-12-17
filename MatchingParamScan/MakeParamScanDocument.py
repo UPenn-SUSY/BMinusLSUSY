@@ -24,7 +24,7 @@ def getAllSamples():
         if not os.path.isfile('%s/DJR1.jpg' % dirname) or not os.path.isfile('%s/DJR2.jpg' % dirname):
             continue
 
-        if xqcut > 200:
+        if int(xqcut) > 200:
             continue
 
         print 'stop_mass: %s' % stop_mass
