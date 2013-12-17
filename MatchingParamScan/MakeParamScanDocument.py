@@ -21,6 +21,12 @@ def getAllSamples():
         xqcut     = splits[1].split('_')[1]
         qcut      = splits[2].split('_')[1]
 
+        if not os.path.isfile('%s/DJR1.jpg' % dirname) or not os.path.isfile('%s/DJR2.jpg' % dirname):
+            continue
+
+        if xqcut > 200:
+            continue
+
         print 'stop_mass: %s' % stop_mass
         print 'xqcut    : %s' % xqcut
         print 'qcut     : %s' % qcut
@@ -30,13 +36,10 @@ def getAllSamples():
 
 # ------------------------------------------------------------------------------
 def printLatexHeader(out_file):
-    out_file.write("""\\documentclass[11pt]{amsart}
-\\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
-\\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
-%\\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+    out_file.write("""\\documentclass[10pt]{article}
+\\usepackage[margin=2cm]{geometry}
+\\geometry{a4paper}
 \\usepackage{graphicx}
-\\usepackage{amssymb}
-\\usepackage{epstopdf}
 \\usepackage{placeins}
 \\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
@@ -52,8 +55,9 @@ def printMassHeading(out_file, stop_mass):
     out_file.write('\\FloatBarrier\n')
     out_file.write('\\newpage\n')
     out_file.write('\\section{Stop mass: %s}\n' % stop_mass)
-    out_file.write('\\FloatBarrier\n')
     out_file.write('\n')
+    out_file.write('\\FloatBarrier\n')
+    out_file.write('\\newpage\n')
 
 # ------------------------------------------------------------------------------
 def printConfigPlots(out_file, sample_dict):
@@ -71,11 +75,11 @@ def printConfigPlots(out_file, sample_dict):
     print ''
 
     # out_file.write("mstop: %s\n" % sample_dict['mass'])
-    # out_file.write('\\subsection{xqcut: %s\tqcut: %s}\n' % (sample_dict['xqcut'], sample_dict['qcut']))
+    # out_file.write('\\subsection{xqcut: %s :: qcut: %s}\n' % (sample_dict['xqcut'], sample_dict['qcut']))
     # out_file.write("%s\n" % djr1_plot_name)
     # out_file.write("%s\n" % djr2_plot_name)
 
-    out_file.write("\\begin{figure}\n")
+    out_file.write("\\begin{figure}[h!]\n")
     out_file.write("\\centering\n")
     out_file.write("\\begin{minipage}{.5\\textwidth}\n")
     out_file.write("  \\centering\n")
@@ -91,7 +95,7 @@ def printConfigPlots(out_file, sample_dict):
     out_file.write("  DJR2\n")
     # out_file.write("  \label{fig:test2}\n")
     out_file.write("\\end{minipage}\n")
-    out_file.write('\\caption{xqcut: %s  qcut: %s}\n' % (sample_dict['xqcut'], sample_dict['qcut']))
+    out_file.write('\\caption{stop mass: %s :: xqcut: %s :: qcut: %s}\n' % (sample_dict['mass'], sample_dict['xqcut'], sample_dict['qcut']))
     out_file.write("\\end{figure}\n")
     out_file.write("\n")
     out_file.write('\\FloatBarrier\n')

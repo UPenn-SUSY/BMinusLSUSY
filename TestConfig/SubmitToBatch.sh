@@ -48,4 +48,4 @@ echo "command"
 cat jobs/jo_${model_name}.sh
 echo ""
 
-bsub -q $queue ${PWD}/jobs/jo_${model_name}.sh
+echo bsub -q $queue ${PWD}/jobs/jo_${model_name}.sh

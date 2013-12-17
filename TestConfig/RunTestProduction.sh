@@ -40,7 +40,8 @@ cd ${model_name}
 # ./bin/generate_events -f
 # If you want to do both the matrix element (MadGraph) and the
 #   decays/hadronization, use this command instead.
-./bin/generate_events -f --laststep=pythia
+# ./bin/generate_events -f --laststep=pythia
+./bin/generate_events
 
 #     model_name="${model_dir}_${mass}_np${njets}"
 #     param_card_name="${model_dir}_${mass}"
