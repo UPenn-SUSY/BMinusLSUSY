@@ -4,7 +4,7 @@ import os
 import subprocess
 
 mass_min = 100
-mass_max = 1000
+mass_max = 1100
 mass_step = 100
 
 xqcut_min_factor = 10.

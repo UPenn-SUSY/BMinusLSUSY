@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
 import os
+import RemoveLegend as rl
+
+import subprocess
 
 # ------------------------------------------------------------------------------
 def getAllSamples():
@@ -21,7 +24,8 @@ def getAllSamples():
         xqcut     = splits[1].split('_')[1]
         qcut      = splits[2].split('_')[1]
 
-        if not os.path.isfile('%s/DJR1.jpg' % dirname) or not os.path.isfile('%s/DJR2.jpg' % dirname):
+        # if not os.path.isfile('%s/DJR1.jpg' % dirname) or not os.path.isfile('%s/DJR2.jpg' % dirname):
+        if not os.path.isfile('%s/DJR1.jpg' % dirname):
             continue
 
         if int(xqcut) > 200:
@@ -35,6 +39,21 @@ def getAllSamples():
     return sample_list
 
 # ------------------------------------------------------------------------------
+def preparePlots(sample_list):
+    for sl in sample_list:
+        print 'preparing plots for mstop=%s xqcut=%s qcut=%s' % (sl['mass'], sl['xqcut'], sl['qcut'])
+        sample_dir_name = 'mstop_%s__xqcut_%s__qcut_%s' % (sl['mass'], sl['xqcut'], sl['qcut'])
+        plot_dir_name = "%s/matching_plots" % sample_dir_name
+        djr1 = "%s/DJR1" % plot_dir_name
+        rl.removeLegend('%s.ps' % djr1, '%s_no_leg.ps' % djr1)
+
+        sp1 = subprocess.Popen(['ps2epsi', '%s.ps' % djr1, '%s.epsi' % djr1], stdout=subprocess.PIPE)
+        output = sp1.communicate()
+
+        sp2 = subprocess.Popen(['ps2epsi', '%s_no_leg.ps' % djr1, '%s_no_leg.epsi' % djr1], stdout=subprocess.PIPE)
+        output = sp2.communicate()
+
+# ------------------------------------------------------------------------------
 def printLatexHeader(out_file):
     out_file.write("""\\documentclass[10pt]{article}
 \\usepackage[margin=2cm]{geometry}
@@ -42,6 +61,8 @@ def printLatexHeader(out_file):
 \\usepackage{graphicx}
 \\usepackage{placeins}
 \\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\\usepackage{epstopdf}
+% \\epstopdfsetup{update} % only regenerate pdf files when eps file is newer
 
 \\title{MadGraph-Pythia matching plots}
 
@@ -66,12 +87,14 @@ def printConfigPlots(out_file, sample_dict):
     plot_dir_name = "%s/matching_plots" % sample_dir_name
     # djr1_plot_name = "%s/DJR1.ps" % plot_dir_name
     # djr2_plot_name = "%s/DJR2.ps" % plot_dir_name
-    djr1_plot_name = "%s/DJR1.jpg" % plot_dir_name
-    djr2_plot_name = "%s/DJR2.jpg" % plot_dir_name
+    djr1_plot_name = "%s/DJR1.epsi" % plot_dir_name
+    djr1_no_leg_plot_name = "%s/DJR1_no_leg.epsi" % plot_dir_name
+    # djr2_plot_name = "%s/DJR2.jpg" % plot_dir_name
 
     print 'dir_name: %s' % plot_dir_name
     print 'djr1: %s' % djr1_plot_name
-    print 'djr2: %s' % djr2_plot_name
+    print 'djr1_no_leg: %s' % djr1_no_leg_plot_name
+    # print 'djr2: %s' % djr2_plot_name
     print ''
 
     # out_file.write("mstop: %s\n" % sample_dict['mass'])
@@ -90,9 +113,10 @@ def printConfigPlots(out_file, sample_dict):
     out_file.write("\\end{minipage}%\n")
     out_file.write("\\begin{minipage}{.5\\textwidth}\n")
     out_file.write("  \\centering\n")
-    out_file.write("  \\includegraphics[width=\\linewidth]{%s}\n" % djr2_plot_name)
+    # out_file.write("  \\includegraphics[width=\\linewidth]{%s}\n" % djr2_plot_name)
+    out_file.write("  \\includegraphics[width=\\linewidth]{%s}\n" % djr1_no_leg_plot_name)
     # out_file.write("  \\caption{DJR2}\n")
-    out_file.write("  DJR2\n")
+    out_file.write("  DJR1 no legend\n")
     # out_file.write("  \label{fig:test2}\n")
     out_file.write("\\end{minipage}\n")
     out_file.write('\\caption{stop mass: %s :: xqcut: %s :: qcut: %s}\n' % (sample_dict['mass'], sample_dict['xqcut'], sample_dict['qcut']))
@@ -127,6 +151,8 @@ def printLatexFile(out_dir, out_file_name, sample_list):
 # ------------------------------------------------------------------------------
 def main():
     sample_list = getAllSamples()
+
+    preparePlots(sample_list)
 
     printLatexFile("MatchingPlotsDoc", "MatchingPlots.tex", sample_list)
 
