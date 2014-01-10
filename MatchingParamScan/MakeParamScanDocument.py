@@ -28,15 +28,20 @@ def getAllSamples():
         if not os.path.isfile('%s/DJR1.jpg' % dirname):
             continue
 
-        if int(xqcut) > 200:
-            continue
+        # if int(xqcut) > 200:
+        #     continue
 
         print 'stop_mass: %s' % stop_mass
         print 'xqcut    : %s' % xqcut
         print 'qcut     : %s' % qcut
 
         sample_list.append({'mass':stop_mass, 'xqcut':xqcut, 'qcut':qcut})
+
     return sample_list
+
+# ------------------------------------------------------------------------------
+def orderSampleList(sample_list):
+    return sorted(sample_list, key = lambda sl: 1e6*int(sl['mass']) + 1e3*int(sl['xqcut']) + int(sl['qcut']))
 
 # ------------------------------------------------------------------------------
 def preparePlots(sample_list):
@@ -151,6 +156,8 @@ def printLatexFile(out_dir, out_file_name, sample_list):
 # ------------------------------------------------------------------------------
 def main():
     sample_list = getAllSamples()
+
+    sample_list = orderSampleList(sample_list)
 
     preparePlots(sample_list)
 
