@@ -44,8 +44,7 @@ echo "" >> jobs/jo_$model_name.sh
 
 echo "echo \"Converting LHE file(${lhe_file}) to pool file\"" >> jobs/jo_$model_name.sh
 echo "ls ${lhe_file}" >> jobs/jo_$model_name.sh
-echo "./${model_dir}/LheToPool.sh ${lhe_file} ${model_name}" >> jobs/jo_$model_name.sh
-echo "ls" >> jobs/jo_$model_name.sh
+echo "./${model_dir}/LheToPool.sh ${lhe_file} ${model_name}" >> jobs/jo_$model_name.sh echo "ls" >> jobs/jo_$model_name.sh
 echo "" >> jobs/jo_$model_name.sh
 
 echo "echo \"Converting Pool file to truth ntuple\"" >> jobs/jo_$model_name.sh
