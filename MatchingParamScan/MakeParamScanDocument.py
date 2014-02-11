@@ -40,6 +40,32 @@ def getAllSamples():
     return sample_list
 
 # ------------------------------------------------------------------------------
+def getFinalSamples():
+    sample_list = []
+    for stop_mass in xrange(100, 1100, 100):
+        for modulus in [1, 5, 10]:
+            xqcut = int(stop_mass / 6)
+            while xqcut % modulus != 0:
+                print '\txqcut(%s) mod %s != 0 -- decrementing by 1' % (xqcut, modulus)
+                xqcut -= 1
+            qcut = 2*xqcut
+
+            print 'stop_mass: %s' % stop_mass
+            print 'xqcut    : %s' % xqcut
+            print 'qcut     : %s' % qcut
+
+            dict_to_append = {'mass':stop_mass, 'xqcut':xqcut, 'qcut':qcut}
+            if dict_to_append in sample_list:
+                print '%s is already found in the sample list -- skipping' % dict_to_append
+                continue
+
+            # sample_list.append({'mass':stop_mass, 'xqcut':xqcut, 'qcut':qcut})
+            sample_list.append(dict_to_append)
+
+    print ''
+    return sample_list
+
+# ------------------------------------------------------------------------------
 def orderSampleList(sample_list):
     return sorted(sample_list, key = lambda sl: 1e6*int(sl['mass']) + 1e3*int(sl['xqcut']) + int(sl['qcut']))
 
@@ -50,6 +76,9 @@ def preparePlots(sample_list):
         sample_dir_name = 'mstop_%s__xqcut_%s__qcut_%s' % (sl['mass'], sl['xqcut'], sl['qcut'])
         plot_dir_name = "%s/matching_plots" % sample_dir_name
         djr1 = "%s/DJR1" % plot_dir_name
+        if not os.path.exists('%s.ps' % djr1):
+            print '\tERROR: Missing matching plot: %s.ps' % djr1
+            continue
         rl.removeLegend('%s.ps' % djr1, '%s_no_leg.ps' % djr1)
 
         sp1 = subprocess.Popen(['ps2epsi', '%s.ps' % djr1, '%s.epsi' % djr1], stdout=subprocess.PIPE)
@@ -57,6 +86,8 @@ def preparePlots(sample_list):
 
         sp2 = subprocess.Popen(['ps2epsi', '%s_no_leg.ps' % djr1, '%s_no_leg.epsi' % djr1], stdout=subprocess.PIPE)
         output = sp2.communicate()
+
+    print ''
 
 # ------------------------------------------------------------------------------
 def printLatexHeader(out_file):
@@ -155,13 +186,17 @@ def printLatexFile(out_dir, out_file_name, sample_list):
 
 # ------------------------------------------------------------------------------
 def main():
-    sample_list = getAllSamples()
+    # sample_list = getAllSamples()
+    sample_list_final = getFinalSamples()
 
-    sample_list = orderSampleList(sample_list)
+    # sample_list = orderSampleList(sample_list)
+    sample_list_final = orderSampleList(sample_list_final)
 
-    preparePlots(sample_list)
+    # preparePlots(sample_list)
+    preparePlots(sample_list_final)
 
-    printLatexFile("MatchingPlotsDoc", "MatchingPlots.tex", sample_list)
+    # printLatexFile("MatchingPlotsDoc", "MatchingPlots.tex", sample_list)
+    printLatexFile("MatchingPlotsFinalDoc", "MatchingPlotsFinal.tex", sample_list_final)
 
 # ==============================================================================
 if __name__ == '__main__':
