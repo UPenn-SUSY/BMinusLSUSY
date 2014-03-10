@@ -7,7 +7,7 @@
 # export JOBOPTSEARCHPATH=/cvmfs/atlas.cern.ch/repo/sw/Generators/MC12JobOptions/latest/common:$JOBOPTSEARCHPATH
 
 
-source $AtlasSetup/scripts/asetup.sh 17.2.11.15,noTest,slc5,gcc43
+source $AtlasSetup/scripts/asetup.sh 17.2.11.15,here,slc5,gcc43
 export JOBOPTSEARCHPATH=/cvmfs/atlas.cern.ch/repo/sw/Generators/MC12JobOptions/latest/common:$JOBOPTSEARCHPATH
 export JOBOPTSEARCHPATH=/cvmfs/atlas.cern.ch/repo/sw/Generators/MC12JobOptions/latest/susycontrol:$JOBOPTSEARCHPATH
 
