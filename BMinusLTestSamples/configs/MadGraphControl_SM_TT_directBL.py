@@ -14,7 +14,7 @@ if therun>=0 and therun<20:
     use_decays=False # To turn on decays in MadGraph
     evt_multiplier = 20.0
 
-evgenConfig.contact  = [ "bjackson@cern.ch" ] # Didn't look to see if that's right ;-)
+evgenConfig.contact  = [ "bjackson@cern.ch" ]
 evgenConfig.keywords += ['stop']
 evgenConfig.description = 'stop direct pair production with simplified model'
 evgenConfig.minevents=50000

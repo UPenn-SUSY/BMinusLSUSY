@@ -43,7 +43,8 @@ def getAllSamples():
 def getFinalSamples():
     sample_list = []
     for stop_mass in xrange(100, 1100, 100):
-        for modulus in [1, 5, 10]:
+        # for modulus in [1, 5, 10]:
+        for modulus in [5, 10]:
             xqcut = int(stop_mass / 6)
             while xqcut % modulus != 0:
                 print '\txqcut(%s) mod %s != 0 -- decrementing by 1' % (xqcut, modulus)
@@ -61,6 +62,22 @@ def getFinalSamples():
 
             # sample_list.append({'mass':stop_mass, 'xqcut':xqcut, 'qcut':qcut})
             sample_list.append(dict_to_append)
+
+
+
+        xqcut = int(stop_mass / 4)
+        qcut = xqcut
+
+        print 'stop_mass: %s' % stop_mass
+        print 'xqcut    : %s' % xqcut
+        print 'qcut     : %s' % qcut
+
+        dict_to_append = {'mass':stop_mass, 'xqcut':xqcut, 'qcut':qcut}
+        if dict_to_append in sample_list:
+            print '%s is already found in the sample list -- skipping' % dict_to_append
+            continue
+
+        sample_list.append(dict_to_append)
 
     print ''
     return sample_list
@@ -86,6 +103,12 @@ def preparePlots(sample_list):
 
         sp2 = subprocess.Popen(['ps2epsi', '%s_no_leg.ps' % djr1, '%s_no_leg.epsi' % djr1], stdout=subprocess.PIPE)
         output = sp2.communicate()
+
+        sp3 = subprocess.Popen(['eps2eps', '%s.epsi' % djr1, '%s.eps' % djr1], stdout=subprocess.PIPE)
+        output = sp3.communicate()
+
+        sp4 = subprocess.Popen(['eps2eps', '%s_no_leg.epsi' % djr1, '%s_no_leg.eps' % djr1], stdout=subprocess.PIPE)
+        output = sp4.communicate()
 
     print ''
 

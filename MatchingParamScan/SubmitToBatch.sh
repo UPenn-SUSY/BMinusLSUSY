@@ -59,6 +59,9 @@ echo "mkdir ${PWD}/${model_name}/matching_plots" >> jobs/jo__$model_name.sh
 echo "cp ${model_name}/HTML/run_01/plots_pythia_fermi/DJR* $PWD/${model_name}/matching_plots/" >> jobs/jo__$model_name.sh
 echo "" >> jobs/jo__$model_name.sh
 
+echo "cp -r ${model_name} $PWD/${model_name}/" >> jobs/jo__$model_name.sh
+echo "" >> jobs/jo__$model_name.sh
+
 # make executable
 chmod +x jobs/jo__${model_name}.sh
 
