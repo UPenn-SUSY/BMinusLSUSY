@@ -1,0 +1,13 @@
+# Run event generation on lxplus batch system
+./DoGenOnLxBatch.sh 400000 BMinusL_100_np1 -1 8nh
+|_________________| |____| |_____________| || |-|
+|                   |      |               |  |
+|                   |      |               |  |___ lxbatch queue - recommended 1nh or 8nh 
+|                   |      |               |
+|                   |      |               |______ number of generated events - must be -1 -- need to remove this option
+|                   |      |
+|                   |      |______________________ data set name
+|                   |
+|                   |_____________________________ data set number
+|
+|_________________________________________________ script to run
