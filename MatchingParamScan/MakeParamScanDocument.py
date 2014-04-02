@@ -209,17 +209,17 @@ def printLatexFile(out_dir, out_file_name, sample_list):
 
 # ------------------------------------------------------------------------------
 def main():
-    # sample_list = getAllSamples()
-    sample_list_final = getFinalSamples()
+    sample_list = getAllSamples()
+    # sample_list_final = getFinalSamples()
 
     # sample_list = orderSampleList(sample_list)
-    sample_list_final = orderSampleList(sample_list_final)
+    # sample_list_final = orderSampleList(sample_list_final)
 
-    # preparePlots(sample_list)
-    preparePlots(sample_list_final)
+    preparePlots(sample_list)
+    # preparePlots(sample_list_final)
 
-    # printLatexFile("MatchingPlotsDoc", "MatchingPlots.tex", sample_list)
-    printLatexFile("MatchingPlotsFinalDoc", "MatchingPlotsFinal.tex", sample_list_final)
+    printLatexFile("MatchingPlotsDoc", "MatchingPlots.tex", sample_list)
+    # printLatexFile("MatchingPlotsFinalDoc", "MatchingPlotsFinal.tex", sample_list_final)
 
 # ==============================================================================
 if __name__ == '__main__':

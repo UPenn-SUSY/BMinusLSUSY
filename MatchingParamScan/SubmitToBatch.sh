@@ -37,14 +37,14 @@ echo "" >> jobs/jo__$model_name.sh
 
 # Copy files to worker node
 echo "echo \"Copying files to worker node\"" >> jobs/jo__$model_name.sh
-echo "cp -rf ${PWD}/../MadGraph5_v1_5_13 ." >> jobs/jo__$model_name.sh
+echo "cp -rf ${PWD}/../../MG5_aMC_v2_1_0 ." >> jobs/jo__$model_name.sh
 echo "cp ${PWD}/$model_name/CreateCard.py ." >> jobs/jo__$model_name.sh
 echo "cp ${PWD}/$model_name/Reference*Card.dat ." >> jobs/jo__$model_name.sh
 echo "" >> jobs/jo__$model_name.sh
 
 # Run MadGraph
 echo "echo \"Running MadGraph\"" >> jobs/jo__$model_name.sh
-echo "cd MadGraph5_v1_5_13" >> jobs/jo__$model_name.sh
+echo "cd MG5_aMC_v2_1_0" >> jobs/jo__$model_name.sh
 echo "${PWD}/RunTestProduction.sh ${PWD}/${model_name} ${stop_mass} ${xqcut} ${qcut}" >> jobs/jo__$model_name.sh
 echo "" >> jobs/jo__$model_name.sh
 
@@ -59,8 +59,8 @@ echo "mkdir ${PWD}/${model_name}/matching_plots" >> jobs/jo__$model_name.sh
 echo "cp ${model_name}/HTML/run_01/plots_pythia_fermi/DJR* $PWD/${model_name}/matching_plots/" >> jobs/jo__$model_name.sh
 echo "" >> jobs/jo__$model_name.sh
 
-echo "cp -r ${model_name} $PWD/${model_name}/" >> jobs/jo__$model_name.sh
-echo "" >> jobs/jo__$model_name.sh
+# echo "cp -r ${model_name} $PWD/${model_name}/" >> jobs/jo__$model_name.sh
+# echo "" >> jobs/jo__$model_name.sh
 
 # make executable
 chmod +x jobs/jo__${model_name}.sh

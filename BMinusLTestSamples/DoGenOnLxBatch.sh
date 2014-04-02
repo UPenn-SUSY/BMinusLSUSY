@@ -1,13 +1,13 @@
 #!/bin/bash
 # ==============================================================================
-# = usage: ./DoGenOnLxBatch.sh <DSID> <SHORT_NAME> <NUM_EVENTS> <QUEUE>
+# = usage: ./DoGenOnLxBatch.sh <DSID> <SHORT_NAME> <QUEUE>
 # ==============================================================================
 
 # get variables from input
 dsid=$1
 short_name=$2
-num_events=$3
-queue=$4
+num_events=-1
+queue=$3
 dir_on_afs_work=${PWD}
 
 pool_file_name="evgen.${dsid}.${short_name}.pool.root"
@@ -19,9 +19,15 @@ echo "Num events: $num_events"
 echo "Queue: $queue"
 echo "Dir on afs work: ${dir_on_afs_work}"
 
-mkdir jobs
-mkdir samples
-mkdir truth_d3pd
+if [[ ! -d jobs ]]; then
+  mkdir jobs
+fi
+if [[ ! -d samples ]]; then
+  mkdir samples
+fi
+if [[ ! -d truth_d3pd ]]; then
+  mkdir truth_d3pd
+fi
 
 # make job option file
 jo_file_name="jobs/jo.${dsid}.${short_name}.sh"
@@ -30,10 +36,13 @@ echo "" >> $jo_file_name
 
 # setup environment and athena
 echo "# setup environment and athena" >> $jo_file_name
+echo 'LOCAL_WORK_DIR=${PWD}' >> $jo_file_name
 echo "source ~/.bash_profile" >> $jo_file_name
-echo "source $AtlasSetup/scripts/asetup.sh 17.2.11.15,noTest,slc5,gcc43" >> $jo_file_name
+echo "cd ${TestArea}" >> $jo_file_name
+echo "source ${AtlasSetup}/scripts/asetup.sh 17.2.11.15,here,slc5,gcc43" >> $jo_file_name
 echo 'export JOBOPTSEARCHPATH=/cvmfs/atlas.cern.ch/repo/sw/Generators/MC12JobOptions/latest/common:$JOBOPTSEARCHPATH' >> $jo_file_name
 echo 'export JOBOPTSEARCHPATH=/cvmfs/atlas.cern.ch/repo/sw/Generators/MC12JobOptions/latest/susycontrol:$JOBOPTSEARCHPATH' >> $jo_file_name
+echo 'cd ${LOCAL_WORK_DIR}' >> $jo_file_name
 echo "" >> $jo_file_name
 
 # make directory for this sample
@@ -68,4 +77,4 @@ echo "" >> $jo_file_name
 
 # submit job to batch
 chmod +x $jo_file_name
-bsub -q ${queue} ${PWD}/${jo_file_name}
+# bsub -q ${queue} ${PWD}/${jo_file_name}
