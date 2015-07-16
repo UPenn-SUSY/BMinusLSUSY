@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# = usage: ./DoGenOnLxBatch.sh <DSID> <SHORT_NAME> <QUEUE> <leptons_in_decay> <decay_stops_in_mg> <num_additional_partons> <com_energy>
+# = usage: ./DoGenOnLxBatch.sh <DSID> <SHORT_NAME> <QUEUE> <leptons_in_decay> <com_energy>
 # ==============================================================================
 
 # get variables from input
@@ -10,9 +10,9 @@ num_events=-1
 queue=$3
 dir_on_afs_work=${PWD}
 leptons_in_decay=$4
-decay_stops_in_mg=$5
-num_additional_partons=$6
-com_energy=$7
+# decay_stops_in_mg=$5
+# num_additional_partons=$6
+com_energy=$5
 
 # check for valid queue name
 if [[ "$queue" == "" ]] ; then
@@ -26,17 +26,17 @@ if [[ "$leptons_in_decay" == "" ]] ; then
   leptons_in_decay="em"
 fi
 
-# check for valid decay stops in MG option
-if [[ "$decay_stops_in_mg" == "" ]] ; then
-  # default to no
-  decay_stops_in_mg="0"
-fi
+# # check for valid decay stops in MG option
+# if [[ "$decay_stops_in_mg" == "" ]] ; then
+#   # default to no
+#   decay_stops_in_mg="0"
+# fi
 
-# check valid number of additional partons
-if [[ "$num_additional_partons" == "" ]] ; then
-  # default to 0
-  num_additional_partons="0"
-fi
+## # check valid number of additional partons
+## if [[ "$num_additional_partons" == "" ]] ; then
+##   # default to 0
+##   # num_additional_partons="0"
+## fi
 
 # check for valid com energy
 if [[ "$com_energy" == "" ]] ; then
@@ -52,8 +52,8 @@ echo "Num events: $num_events"
 echo "Queue: $queue"
 echo "Dir on afs work: ${dir_on_afs_work}"
 echo "leptons in decay: ${leptons_in_decay}"
-echo "Decay stops in MG: ${decay_stops_in_mg}"
-echo "Number additional partons: ${num_additional_partons}"
+# echo "Decay stops in MG: ${decay_stops_in_mg}"
+# echo "Number additional partons: ${num_additional_partons}"
 
 if [[ ! -d jobs ]]; then
   mkdir jobs
@@ -69,7 +69,7 @@ fi
 config_file_name="MC15.${dsid}.MGPy8EG_${short_name}.py"
 
 # make job option file
-jo_file_name="jobs/jo.${dsid}.${short_name}.sh"
+jo_file_name="jobs/jo.${dsid}.${short_name}.com_${com_energy}.sh"
 echo "#!/bin/bash" > $jo_file_name
 echo "" >> $jo_file_name
 
