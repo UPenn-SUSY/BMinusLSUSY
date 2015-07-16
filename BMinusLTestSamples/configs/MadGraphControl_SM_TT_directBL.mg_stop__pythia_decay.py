@@ -13,7 +13,7 @@ masses['1000006'] = 50*therun+100 # 50 GeV scan over stop masses, 20 points
 
 gentype = 'TT'
 decaytype='directBL' # your magic word
-njets=0
+njets=1
 
 process = ''
 starter = 'generate'
@@ -24,12 +24,11 @@ for jet_it in xrange(njets+1):
 
     proc_string = '%s p p > t1 t1~ %s $ go susylq susylq~ b1 b2 t2 b1~ b2~ t2~ @%d' % (starter, jet_string, jet_it)
     process = '\n'.join([process, proc_string])
-    # process = '%s%s\n' % (process, proc_string)
 
     starter = 'add process'
 
-# evt_multiplier = 20.0
-evt_multiplier = 1.0
+evt_multiplier = 20.0
+# evt_multiplier = 1.0
 evgenLog.info('Registered generation of stop pair production, stop to bl; grid point '+str(therun)+' decoded into mass ' + str(masses['1000006']) + ', with ' + str(njets) + ' jets.')
 
 evgenConfig.contact  = [ "bjackson@cern.ch" ]

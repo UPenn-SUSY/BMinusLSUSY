@@ -122,7 +122,7 @@ echo "" >> $jo_file_name
 
 # change release for reco tf
 echo "source \
-/afs/cern.ch/atlas/software/dist/AtlasSetup/scripts/asetup.sh 20.1.5.4,AtlasDerivation,slc6,gcc47" \
+/afs/cern.ch/atlas/software/dist/AtlasSetup/scripts/asetup.sh 20.1.5.4,AtlasDerivation,slc6,gcc48" \
 >> $jo_file_name
 echo "" >> $jo_file_name
 
@@ -137,7 +137,7 @@ echo "ls" >> $jo_file_name
 echo "" >> $jo_file_name
 
 # Clean up big files before copying
-echo "rm madgraph.*.madgraph_SM_TT_directBL_*._00001.events" >> $jo_file_name
+echo "rm *.events" >> $jo_file_name
 echo "rm events.lhe" >> $jo_file_name
 echo "rm evgen.*.pool.root" >> $jo_file_name
 echo "rm -rf PROC_ReducedUFO_0" >> $jo_file_name
@@ -147,8 +147,8 @@ echo "" >> $jo_file_name
 echo "# Copy dir to afs" >> $jo_file_name
 echo "cd .." >> $jo_file_name
 echo "cp -r ${local_dir_name} ${dir_on_afs_work}/samples" >> $jo_file_name
-echo "mv ${dir_on_afs_work}/samples/${local_dir_name}/${truth_ntuple_name} \
-${dir_on_afs_work}/truth_d3pd/${truth_ntuple_name}" >> $jo_file_name
+echo "mv ${dir_on_afs_work}/samples/${local_dir_name}/DAOD_TRUTH1.${truth_ntuple_name} \
+${dir_on_afs_work}/truth_d3pd/DAOD_TRUTH1.${truth_ntuple_name}" >> $jo_file_name
 echo "" >> $jo_file_name
 
 # submit job to batch
