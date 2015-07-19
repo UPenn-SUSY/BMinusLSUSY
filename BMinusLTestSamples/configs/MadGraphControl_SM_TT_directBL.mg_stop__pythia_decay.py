@@ -34,6 +34,7 @@ evgenLog.info('Registered generation of stop pair production, stop to bl; grid p
 evgenConfig.contact  = [ "bjackson@cern.ch" ]
 evgenConfig.keywords += ['stop']
 evgenConfig.description = 'stop direct pair production with simplified model'
+evgenConfig.minevents=50000
 
 include ( 'MC15JobOptions/MadGraphControl_SimplifiedModelPostInclude.py' )
 
